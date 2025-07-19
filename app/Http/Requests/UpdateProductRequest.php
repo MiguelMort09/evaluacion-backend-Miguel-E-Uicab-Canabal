@@ -16,8 +16,7 @@ class UpdateProductRequest extends FormRequest
     {
         $product = $this->route('product');
 
-        // Verificar si el usuario autenticado es el propietario del producto
-        return $this->user() && $this->user()->id === $product->user_id;
+        return $product && $this->user()->id === $product->user_id;
     }
 
     /**
@@ -59,8 +58,6 @@ class UpdateProductRequest extends FormRequest
             'stock.min' => 'El stock no puede ser negativo.',
             'status.required' => 'El estado del producto es obligatorio.',
             'status.enum' => 'El estado del producto debe ser: Draft, Active, Without Stock, Deleted o Discontinued.',
-            'category.string' => 'La categoría debe ser una cadena de texto.',
-            'category.max' => 'La categoría no puede tener más de 100 caracteres.',
         ];
     }
 }

@@ -23,6 +23,7 @@ class ProductResource extends JsonResource
             'stock' => $this->stock,
             'status' => $this->status,
             'status_label' => $this->getStatusLabel(),
+            'user_id' => $this->user_id,
             'user' => [
                 'id' => $this->user->id,
                 'name' => $this->user->name,
