@@ -11,6 +11,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->alias([
+            'request.logging' => \App\Http\Middleware\RequestLogging::class,
+        ]);
+        $middleware->group('api', [
+            'request.logging',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (Throwable $throwable, \Illuminate\Http\Request $request) {
@@ -20,4 +26,3 @@ return Application::configure(basePath: dirname(__DIR__))
             return null;
         });
     })->create();
-
