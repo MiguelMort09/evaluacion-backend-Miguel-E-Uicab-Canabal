@@ -11,8 +11,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->render(function (Throwable $throwable, \Illuminate\Http\Request $request) {
+            if ($request->expectsJson() || $request->is('api/*')) {
+                return app(\App\Exceptions\ApiException::class)->handle($request, $throwable);
+            }
+            return null;
+        });
     })->create();
+
