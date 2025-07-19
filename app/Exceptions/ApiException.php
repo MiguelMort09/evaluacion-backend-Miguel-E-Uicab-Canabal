@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
@@ -22,19 +23,22 @@ class ApiException extends Exception
         $message =  '!Ups, algo salió mal!';
         $errors = null;
 
-        if ($exception instanceof ValidationException) {
-            $statusCode = 422;
-            $message = 'Error de validación';
-            $errors = $exception->validator->errors()->getMessages();
+        if ( $exception instanceof AuthenticationException) {
+            $statusCode = 401;
+            $message = 'No autenticado';
+        } elseif ($exception instanceof AccessDeniedHttpException) {
+            $statusCode = 403;
+            $message = 'Acceso denegado';
         } elseif ($exception instanceof NotFoundHttpException) {
             $statusCode = 404;
             $message = 'Recurso no encontrado';
         } elseif ($exception instanceof MethodNotAllowedHttpException) {
             $statusCode = 405;
             $message = 'Método no permitido';
-        } elseif ($exception instanceof AccessDeniedHttpException) {
-            $statusCode = 403;
-            $message = 'Acceso denegado';
+        } elseif ($exception instanceof ValidationException) {
+            $statusCode = 422;
+            $message = 'Error de validación';
+            $errors = $exception->validator->errors()->getMessages();
         } elseif ($exception instanceof HttpException) {
             $statusCode = $exception->getStatusCode();
             $message = $exception->getMessage();
