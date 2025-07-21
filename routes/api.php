@@ -18,3 +18,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::get('/external/posts', [JsonPlaceholderController::class, 'posts']);
 Route::get('/external/users', [JsonPlaceholderController::class, 'users']);
+Route::post('/webhooks/notifications', [\App\Http\Controllers\NotificationController::class, 'handleWebhook']);
+
