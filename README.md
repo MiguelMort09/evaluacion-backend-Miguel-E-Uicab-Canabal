@@ -1,61 +1,73 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Evaluación Técnica
 
-## About Laravel
+Este proyecto es una API desarrollada en Laravel que incluye:
+- API REST de productos (CRUD)
+- Consumo de servicio externo JSONPlaceholder
+- Notificaciones en tiempo real tipo chat (Livewire + Broadcast)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Ejercicios realizados
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. **API REST de productos**
+   - Endpoints CRUD para productos.
+   - Validaciones y migraciones.
+2. **Consumo de servicio JSONPlaceholder**
+   - Servicio y endpoints para obtener datos externos.
+3. **Notificaciones en tiempo real**
+   - Componente Livewire y eventos broadcast.
+   - Vista tipo chat con animaciones y límite de 5 mensajes.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Pruebas Feature realizadas
 
-## Learning Laravel
+- CRUD de productos: crear, listar, mostrar, actualizar, eliminar.
+- Consumo de servicio externo JSONPlaceholder.
+- Autenticación y creación de usuarios.
+- No se han implementado pruebas Feature para notificaciones en tiempo real ni Livewire.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Estructura de Carpetas
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **app/**: Modelos, controladores, servicios, eventos, Livewire.
+- **database/**: Migraciones, seeders, factories.
+- **resources/**: Vistas Blade, CSS, JS.
+- **routes/**: Rutas API, web y canales.
+- **tests/**: Pruebas Feature y Unit.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## Requerimientos técnicos y ejecución
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1. **Requisitos previos**
+   - PHP >= 8.1
+   - Composer
+   - Node.js y npm
+   - SQLite (por defecto) o configurar MySQL/Postgres en `.env`
 
-### Premium Partners
+2. **Instalación**
+   ```bash
+   composer install
+   npm install && npm run build
+   cp .env.example .env
+   php artisan key:generate
+   php artisan migrate --seed
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+3. **Ejecución**
+   ```bash
+   php artisan serve
+   # O usar Valet, Sail o Docker según preferencia
+   ```
 
-## Contributing
+4. **Pruebas**
+   ```bash
+   php artisan test
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5. **Probar notificaciones tipo chat**
+   ```bash
+   curl -k -X POST https://api.test/api/webhooks/notifications -H "Content-Type: application/json"  -d '{"event":"message.received","channel":"notifications","message":{"body":"MORTa"}}'
+   ```
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Para más información, revisa la documentación de cada servicio y los archivos de configuración en el proyecto.
